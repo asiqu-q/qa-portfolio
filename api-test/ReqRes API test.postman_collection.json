@@ -1,0 +1,167 @@
+{
+  "info": {
+    "_postman_id": "7cb6fb83-69aa-4774-a0b0-ff1348818094",
+    "name": "ReqRes API test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55153416",
+    "_collection_link": "https://go.postman.co/collection/55153416-7cb6fb83-69aa-4774-a0b0-ff1348818094?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get users page 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response time < 500ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(500);\r\n});\r\n\r\npm.test(\"Response has 'data' array\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData).to.have.property('data');\r\n    pm.expect(jsonData.data).to.be.an('array').that.is.not.empty;\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/users?page=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response has an 'id'\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property('id');\r",
+              "    pm.expect(jsonData.id).to.not.be.empty;\r",
+              "});\r",
+              "\r",
+              "// Сохраняем id в переменную окружения\r",
+              "const jsonData = pm.response.json();\r",
+              "pm.environment.set(\"user_id\", jsonData.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"job\": \"QA Engineer\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user by ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"User ID matches the requested one\", function () {\r\n    const jsonData = pm.response.json();\r\n    pm.expect(jsonData.data.id).to.eql(parseInt(pm.environment.get(\"user_id\")));\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/users/{{user_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "{{user_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update user",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/users/{{user_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "users",
+            "{{user_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete user",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ]
+}
