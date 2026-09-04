@@ -6,12 +6,8 @@
 ## Проекты в этом портфолио
 1. [Тест-кейсы и баг-репорты для SauceDemo](test-cases/saucedemo-login.md)
 2. [SQL-запросы к учебной БД Chinook](sql-queries/chinook-queries.sql)
-3. API-тесты (Postman)
-- [Коллекция для тестирования ReqRes](api-test/reqres-api-tests.postman_collection.json)
-- Проверяет CRUD-операции: GET, POST, PUT, DELETE
-- Включает автоматические проверки статусов, времени ответа и структуры данных
 
 ## Контакты
 - Email: pia20@yandex.ru
-- Телефон: +79922061035
+- Телефон: +7 992-206-10-35
 - HH.ru: https://perm.hh.ru/resume/02f3471cff10f8db280039ed1f423539715630
